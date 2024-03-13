@@ -1,5 +1,4 @@
 #!/usr/bin/node
-/* Represents a Redis utils client. */
 
 const { createClient } = require('redis');
 const { promisify } = require('util');
