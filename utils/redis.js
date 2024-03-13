@@ -1,4 +1,5 @@
 #!/usr/bin/node
+/* Represents a Redis utils client. */
 
 const { createClient } = require('redis');
 const { promisify } = require('util');
@@ -18,19 +19,19 @@ class RedisClient {
   }
 
   async get(key) {
-    const getAsync = promisify(this.client.get).bind(this.client);
-    const val = await getAsync(key);
-    return val;
+    const Async_get = promisify(this.client.get).bind(this.client);
+    const value = await Async_get(key);
+    return value;
   }
 
-  async set(key, val, dur) {
-    const setAsync = promisify(this.client.set).bind(this.client);
-    await setAsync(key, val, 'EX', dur);
+  async set(key, value, dur) {
+    const Async_set = promisify(this.client.set).bind(this.client);
+    await Async_set(key, value, 'EX', dur);
   }
 
   async del(key) {
-    const delAsync = promisify(this.client.del).bind(this.client);
-    await delAsync(key);
+    const Async_del = promisify(this.client.del).bind(this.client);
+    await Async_del(key);
   }
 }
 
