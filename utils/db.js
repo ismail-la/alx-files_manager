@@ -5,9 +5,9 @@ const mongo = require('mongodb');
 const { pwdHashed } = require('./utils');
 
 class DBClient {
-  /**
-   * Initializes a new instance of DBClient
-   */
+/**
+* Initializes a new instance of DBClient
+*/
   constructor() {
     const host = (process.env.DB_HOST) ? process.env.DB_HOST : 'localhost';
     const port = (process.env.DB_PORT) ? process.env.DB_PORT : 27017;
@@ -20,9 +20,9 @@ class DBClient {
     }).catch((err) => console.log(err.message));
   }
 
-  /**
-   * Check mongodb client's connection status
-   */
+/**
+* Check mongodb client's connection status
+*/
   isAlive() {
     return this.connected;
   }
@@ -33,10 +33,10 @@ class DBClient {
     return users;
   }
 
-  /**
-   * Queries 'files' collection
-   * @returns - number of documents in files collection
-   */
+/**
+* Queries 'files' collection
+* @returns - number of documents in files collection
+*/
   async nbFiles() {
     await this.client.connect();
     const users = await this.client.db(this.database).collection('files').countDocuments();
