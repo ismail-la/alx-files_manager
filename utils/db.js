@@ -34,8 +34,8 @@ class DBClient {
 
   async nbUsers() {
     const users_Collection = this.getCollection('users');
-    const number_Users = await users_Collection.countDocuments();
-    return number_Users;
+    const nbrUsers = await users_Collection.countDocuments();
+    return nbrUsers;
   }
 
   /**
@@ -44,8 +44,8 @@ class DBClient {
    */
   async nbFiles() {
     const files_Collection = this.getCollection('files');
-    const number_Files = files_Collection.countDocuments();
-    return number_Files;
+    const nbrFiles = files_Collection.countDocuments();
+    return nbrFiles;
   }
 
   /**
