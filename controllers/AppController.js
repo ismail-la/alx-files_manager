@@ -1,22 +1,37 @@
-#!/usr/bin/node
-
-const dbClient = require('../utils/db');
-const redisClient = require('../utils/redis');
+import dbClient from '../utils/db';
+import redisClient from '../utils/redis';
 
 class AppController {
-  static getStatus(req, res) {
-    if (redisClient.isAlive() && dbClient.isAlive()) {
-      res.json({ redis: true, db: true });
-      res.end();
+  /**
+   * Controller for endpoint GET /status that retrieves
+   * mongodb client and redis client connection status
+   * @typedef {import("express").Request} Request
+   * @typedef {import("express").Response} Response
+   * @param {Request} _req - request object
+   * @param {Response} res  - response object
+   */
+  static getStatus(_req, res) {
+    if (dbClient.isAlive() && redisClient.isAlive()) {
+      res.status(200).json({ redis: true, db: true });
     }
   }
 
-  static async getStats(req, res) {
-    const users = await dbClient.nbUsers();
-    const files = await dbClient.nbFiles();
-    res.json({ users, files });
-    res.end();
+  /**
+   * Controller for endpoint GET /stats that retrieves
+   * count of users and files
+   * @param {Request} _req - Request object
+   * @param {Response} res  - Response object
+   * @param {import("express").NextFunction} next - Next function
+   */
+  static async getStats(_req, res, next) {
+    try {
+      const users = await dbClient.nbUsers();
+      const files = await dbClient.nbFiles();
+      res.status(200).json({ users, files });
+    } catch (err) {
+      next(err);
+    }
   }
 }
 
-module.exports = AppController;
+export default AppController;
