@@ -1,7 +1,8 @@
 #!/usr/bin/node
-
 import Queue from 'bull';
 import UsersCollection from '../utils/users';
+
+
 const userQueue = Queue('send welcome email');
 
 class UsersController {
